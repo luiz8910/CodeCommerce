@@ -17,6 +17,27 @@ Route::get('/', function () {
 
 Route::get('/exemplo', 'WelcomeController@exemplo');
 
+Route::pattern('id', '[0-9]+');
+
+Route::get('user/{id?}', function($id = 1){
+    if($id)
+        return "Id " . $id;
+
+    return "Sem Id";
+
+})->where('id', '[0-9]+');
+//->where('id', '[A-Za-z]+');
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('products', function(){
+        return 'Produto';
+    });
+});
+
+Route::get('category/{category}', function(\CodeCommerce\Category $category){
+    return $category->name;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,4 +51,18 @@ Route::get('/exemplo', 'WelcomeController@exemplo');
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+
+
+
+//Rotas para a entrega do Projeto
+Route::group(["prefix" => "admin"], function(){
+    Route::get("category/{category}", function(\CodeCommerce\Category $category){
+        return $category->name;
+    });
+
+    Route::get("product/{product}", function(\CodeCommerce\Product $product){
+        return $product->name;
+    });
 });
