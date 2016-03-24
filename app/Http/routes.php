@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/exemplo', 'WelcomeController@exemplo');
 
 Route::pattern('id', '[0-9]+');
 
@@ -38,6 +37,7 @@ Route::get('category/{category}', function(\CodeCommerce\Category $category){
     return $category->name;
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -50,7 +50,18 @@ Route::get('category/{category}', function(\CodeCommerce\Category $category){
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::get("categories", "CategoriesController@index");
+
+    Route::get("categories/create", "CategoriesController@create");
+
+    Route::post("categories", "CategoriesController@store");
+
+    Route::get("categories/{id}/destroy", "CategoriesController@destroy");
 });
 
 
@@ -66,3 +77,4 @@ Route::group(["prefix" => "admin"], function(){
         return $product->name;
     });
 });
+
