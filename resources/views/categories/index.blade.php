@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Categories</h1>
+        <h1>Categories</h1> <a href="{{ route("categories.create") }}" class="btn btn-default">New Category</a>
 
         <table class="table table-responsive">
             <tr>
@@ -17,7 +17,10 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->description }}</td>
-                    <td></td>
+                    <td>
+                        <a href="{{ route("categories.edit", ["id" => $category->id]) }}">Edit</a> |
+                        <a href="{{ route("categories.destroy", ["id" => $category->id]) }}">Delete</a>
+                    </td>
                 </tr>
             @endforeach
         </table>

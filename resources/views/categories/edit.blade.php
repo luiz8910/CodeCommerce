@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Categories</h1>
+        <h1>Editing Categories: {{ $categories->name }}</h1>
 
 
         @if ($errors->any())
@@ -15,20 +15,20 @@
             </div>
         @endif
 
-        {!! Form::open(["route" => "categories.store"]) !!}
+        {!! Form::open(["route" => ["categories.update", $categories->id], "method" => "put"]) !!}
 
             <div class="form-group">
                 {!! Form::label("name", "Name:") !!}
-                {!! Form::text("name", null, ["class"=>"form-control"]) !!}
+                {!! Form::text("name", $categories->name, ["class"=>"form-control"]) !!}
             </div>
 
             <div class="form-group">
                 {!! Form::label("description", "Description:") !!}
-                {!! Form::textarea("description", null, ["class"=>"form-control"]) !!}
+                {!! Form::textarea("description", $categories->description, ["class"=>"form-control"]) !!}
             </div>
 
             <div class="form-group">
-                {!! Form::submit("Add Category", ["class"=>"btn btn-primary"]) !!}
+                {!! Form::submit("Save Category", ["class"=>"btn btn-primary"]) !!}
             </div>
 
         {!! Form::close() !!}
